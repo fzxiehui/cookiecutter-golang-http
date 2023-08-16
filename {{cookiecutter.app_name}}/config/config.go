@@ -43,6 +43,12 @@ func init() {
 	defaultConfig = readViperConfig("{{cookiecutter.app_name|upper}}")
 }
 
+// 重新读取配置文件
+func ReadViperConfigFromFile(configPath string) error {
+	defaultConfig.SetConfigFile(configPath)
+	return defaultConfig.ReadInConfig()
+}
+
 func readViperConfig(appName string) *viper.Viper {
 	v := viper.New()
 	v.SetEnvPrefix(appName)

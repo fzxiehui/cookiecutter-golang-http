@@ -1,0 +1,12 @@
+loglevel: debug
+json_logs: false
+db:
+  user: root
+  password: root
+  addr: 127.0.0.1:3306
+  name: test
+http:
+  mode: release
+  port: 8080
+  read_timeout: 30
+  write_timeout: 30
