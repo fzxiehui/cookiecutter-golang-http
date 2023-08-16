@@ -23,6 +23,11 @@ var startCmd = &cobra.Command{
 		}
 		cfg := config.Config()
 		log.Debug("loglevel:", cfg.GetString("loglevel"))
+		err := Setup()
+		if err != nil {
+			log.Fatal(err)
+			return
+		}
 	},
 }
 

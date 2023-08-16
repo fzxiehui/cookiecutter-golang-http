@@ -60,5 +60,17 @@ func readViperConfig(appName string) *viper.Viper {
 	v.SetDefault("loglevel", "debug")
 	{% endif %}
 
+	// db defaults
+	v.SetDefault("db.user", "root")
+	v.SetDefault("db.password", "root")
+	v.SetDefault("db.addr", "127.0.0.1:3306")
+	v.SetDefault("db.name", "test")
+
+	// http defaults
+	v.SetDefault("http.mode", "release")
+	v.SetDefault("http.port", 8080)
+	v.SetDefault("http.read_timeout", 30)
+	v.SetDefault("http.write_timeout", 30)
+
 	return v
 }
