@@ -28,18 +28,14 @@
     └── version.go
 ```
 
-## Getting started
-
-This project requires Go to be installed. On OS X with Homebrew you can just run `brew install go`.
-
-Running it then should be as simple as:
+## 编译
 
 ```console
 $ go get
-$ make
+$ make build
 $ ./bin/{{cookiecutter.app_name}}
 ```
 
-### Testing
+### 测试
 
 ``make test``
