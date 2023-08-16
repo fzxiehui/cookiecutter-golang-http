@@ -50,9 +50,13 @@ Alternatively, you can install `cookiecutter` with homebrew:
 $ brew install cookiecutter
 ```
 
-Finally, to run it based on this template, type:
+Finally, to run it based on this template, type(https):
 ```console
-$ cookiecutter https://github.com/lacion/cookiecutter-golang.git
+$ cookiecutter https://github.com/fzxiehui/cookiecutter-golang-http.git
+```
+Finally, to run it based on this template, type(ssh):
+```console
+$ cookiecutter git@github.com:fzxiehui/cookiecutter-golang-http.git
 ```
 
 You will be asked about your basic info (name, project name, app name, etc.). This info will be used to customize your new project.
