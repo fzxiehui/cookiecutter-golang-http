@@ -76,6 +76,7 @@ func readViperConfig(appName string) *viper.Viper {
 	v.SetDefault("http.port", 8080)
 	v.SetDefault("http.read_timeout", 30)
 	v.SetDefault("http.write_timeout", 30)
+	v.SetDefault("security.jwt_key", "test")
 
 	return v
 }
