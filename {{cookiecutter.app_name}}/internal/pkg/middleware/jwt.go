@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/fzxiehui/mygolangproject/pkg/jwt"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/pkg/jwt"
 	"github.com/gin-gonic/gin"
 )
 

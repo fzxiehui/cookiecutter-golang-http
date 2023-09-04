@@ -9,6 +9,7 @@ import (
 
 	"net/http"
 
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/handler"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/middleware"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/pkg/jwt"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/version"
@@ -17,7 +18,7 @@ import (
 
 func NewServerHTTP(
 	jwt *jwt.JWT,
-// userHandler handler.UserHandler,
+	userHandler handler.UserHandler,
 ) *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	// router := gin.Default()
@@ -36,6 +37,8 @@ func NewServerHTTP(
 		ctx.String(http.StatusOK, version.Version)
 	})
 
+	router.POST("/register", userHandler.Register)
+
 	router.GET("/auth_test", middleware.StrictAuth(jwt), func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, "靓仔，你好！")
 	})
@@ -48,3 +51,4 @@ func NewServerHTTP(
 
 	return router
 }
+
