@@ -34,6 +34,11 @@ func Config() Provider {
 	return defaultConfig
 }
 
+// Config Viper
+func ConfigViper() *viper.Viper {
+	return defaultConfig
+}
+
 // LoadConfigProvider returns a configured viper instance
 func LoadConfigProvider(appName string) Provider {
 	return readViperConfig(appName)

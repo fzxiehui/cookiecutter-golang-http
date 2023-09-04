@@ -1,9 +1,12 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/config"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/log"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/pkg/http"
 )
 
 var configPath string
@@ -21,13 +24,14 @@ var startCmd = &cobra.Command{
 				return
 			}
 		}
-		cfg := config.Config()
+		cfg := config.ConfigViper()
 		log.Debug("loglevel:", cfg.GetString("loglevel"))
-		err := Setup()
+		servers, cleanup, err := newHttpServe(cfg)
 		if err != nil {
-			log.Fatal(err)
-			return
+			panic(err)
 		}
+		http.Run(servers.ServerHTTP, fmt.Sprintf(":%d", cfg.GetInt("http.port")))
+		defer cleanup()
 	},
 }
 
