@@ -61,6 +61,12 @@ push: tag
 clean:
 	@test ! -e bin/${BIN_NAME} || rm bin/${BIN_NAME}
 
+gen:
+	@echo "Wire Gen"
+	wire ./cmd/*_wire.go
+
 test:
 	go test ./...
 
+test-v:
+	go test -v -count=1 ./...
