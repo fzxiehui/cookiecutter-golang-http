@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/handler"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/repository"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/server"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/service"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/pkg/jwt"
@@ -22,9 +23,17 @@ var ServiceSet = wire.NewSet(
 	service.NewUserService,
 )
 
+var RepositorySet = wire.NewSet(
+	repository.NewDB,
+	repository.NewRedis,
+	repository.NewRepository,
+	repository.NewUserRepository,
+)
+
 func newHttpServe(*viper.Viper) (*server.Server, func(), error) {
 
 	panic(wire.Build(
+		RepositorySet,
 		ServiceSet,
 		HandlerSet,
 		server.NewServer,

@@ -65,11 +65,16 @@ func readViperConfig(appName string) *viper.Viper {
 	v.SetDefault("loglevel", "debug")
 	{% endif %}
 
-	// db defaults
-	v.SetDefault("db.user", "root")
-	v.SetDefault("db.password", "root")
-	v.SetDefault("db.addr", "127.0.0.1:3306")
-	v.SetDefault("db.name", "test")
+	// db mysql defaults
+	v.SetDefault("db.mysql.user", "root")
+	v.SetDefault("db.mysql.password", "root")
+	v.SetDefault("db.mysql.addr", "127.0.0.1:3306")
+	v.SetDefault("db.mysql.name", "test")
+
+	// db redis defaults
+	v.SetDefault("db.redis.addr", "127.0.0.1:6379")
+	v.SetDefault("db.redis.password", "")
+	v.SetDefault("db.redis.db", 0)
 
 	// http defaults
 	v.SetDefault("http.mode", "release")
