@@ -1,0 +1,19 @@
+loglevel: debug
+json_logs: false
+security:
+  jwt_key: test
+db:
+  mysql:
+    user: root
+    password: root
+    addr: 127.0.0.1:3306
+    name: test
+  redis:
+    addr: 127.0.0.1:6379
+    password: 
+    db: 0
+http:
+  mode: release
+  port: 8080
+  read_timeout: 30
+  write_timeout: 30
