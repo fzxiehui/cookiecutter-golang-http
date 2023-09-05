@@ -26,9 +26,6 @@ type userRepository struct {
 }
 
 func (r *userRepository) Create(ctx context.Context, user *model.User) error {
-	// if r.db.Migrator().HasTable(&model.User{}) {
-	// }
-	r.db.AutoMigrate(&model.User{})
 	if err := r.db.Create(user).Error; err != nil {
 		return errors.New("failed to create user")
 	}
