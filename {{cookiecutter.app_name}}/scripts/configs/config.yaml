@@ -12,6 +12,12 @@ db:
     addr: 127.0.0.1:6379
     password: 
     db: 0
+  minio:
+    addr: 127.0.0.1:9000
+    user: test
+    password: test123456
+    ssl: false
+
 http:
   mode: release
   port: 8080

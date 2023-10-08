@@ -22,7 +22,7 @@ var migrationCmd = &cobra.Command{
 		cfg := config.ConfigViper()
 		log.Debug("loglevel:", cfg.GetString("loglevel"))
 
-		mig, cleanup, err := newMigrate(cfg)
+		mig, cleanup, err := newMigrate(cfg, args)
 		if err != nil {
 			panic(err)
 		}
@@ -34,4 +34,5 @@ var migrationCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(migrationCmd)
 	migrationCmd.Flags().StringVarP(&configPath, "config", "c", "", "config file path")
+	migrationCmd.Flags().StringSlice("strings", []string{}, "init SQL File")
 }

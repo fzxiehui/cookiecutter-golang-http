@@ -2,9 +2,12 @@ package repository
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"time"
 
+	"github.com/minio/minio-go/v7"
+	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
@@ -14,13 +17,33 @@ import (
 type Repository struct {
 	db  *gorm.DB
 	rdb *redis.Client
+	oss *minio.Client
 }
 
-func NewRepository(db *gorm.DB, rdb *redis.Client) *Repository {
+func NewRepository(db *gorm.DB, rdb *redis.Client, oss *minio.Client) *Repository {
 	return &Repository{
 		db:  db,
 		rdb: rdb,
+		oss: oss,
 	}
+}
+
+func NewMinIO(conf *viper.Viper) *minio.Client {
+
+	addr := conf.GetString("db.minio.addr")
+	opt := &minio.Options{
+		Creds: credentials.NewStaticV4(
+			conf.GetString("db.minio.user"),
+			conf.GetString("db.minio.password"),
+			""),
+		Secure: conf.GetBool("db.minio.ssl"),
+	}
+
+	minioClient, err := minio.New(addr, opt)
+	if err != nil {
+		panic(err)
+	}
+	return minioClient
 }
 
 func NewDB(conf *viper.Viper) *gorm.DB {
@@ -51,4 +74,24 @@ func NewRedis(conf *viper.Viper) *redis.Client {
 	}
 
 	return rdb
+}
+
+func (r *Repository) RGet(ctx context.Context, key string, dest interface{}) error {
+	buf, err := r.rdb.Get(ctx, key).Bytes()
+	if err != nil {
+		return err
+	}
+	return json.Unmarshal(buf, dest)
+}
+
+func (r *Repository) RSet(ctx context.Context,
+	key string,
+	value interface{},
+	expiration time.Duration) error {
+
+	buf, err := json.Marshal(value)
+	if err != nil {
+		return err
+	}
+	return r.rdb.Set(ctx, key, buf, expiration).Err()
 }

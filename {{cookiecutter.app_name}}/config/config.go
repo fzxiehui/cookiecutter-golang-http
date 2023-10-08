@@ -76,6 +76,12 @@ func readViperConfig(appName string) *viper.Viper {
 	v.SetDefault("db.redis.password", "")
 	v.SetDefault("db.redis.db", 0)
 
+	// db minio defaults
+	v.SetDefault("db.minio.addr", "127.0.0.1:9000")
+	v.SetDefault("db.minio.user", "test")
+	v.SetDefault("db.minio.password", "test123456")
+	v.SetDefault("db.minio.ssl", false)
+
 	// http defaults
 	v.SetDefault("http.mode", "release")
 	v.SetDefault("http.port", 8080)
