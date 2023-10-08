@@ -19,6 +19,7 @@ import (
 func NewServerHTTP(
 	jwt *jwt.JWT,
 	userHandler handler.UserHandler,
+	filesHandler handler.FilesHandler,
 ) *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	// router := gin.Default()
@@ -36,6 +37,13 @@ func NewServerHTTP(
 	router.GET("/version", func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, version.Version)
 	})
+
+	/*
+	 * Files
+	 */
+	router.POST("/upload/image", filesHandler.SaveImage)
+	router.GET("/download/image/:bulk/:uid/:name", filesHandler.GetImage)
+
 
 	router.POST("/register", userHandler.Register)
 

@@ -17,11 +17,13 @@ import (
 var HandlerSet = wire.NewSet(
 	handler.NewHandler,
 	handler.NewUserHandler,
+	handler.NewFilesHandler,
 )
 
 var ServiceSet = wire.NewSet(
 	service.NewService,
 	service.NewUserService,
+	service.NewFilesService,
 )
 
 var RepositorySet = wire.NewSet(
@@ -30,6 +32,7 @@ var RepositorySet = wire.NewSet(
 	repository.NewMinIO,
 	repository.NewRepository,
 	repository.NewUserRepository,
+	repository.NewFilesRepository,
 )
 
 func newHttpServe(*viper.Viper) (*server.Server, func(), error) {
