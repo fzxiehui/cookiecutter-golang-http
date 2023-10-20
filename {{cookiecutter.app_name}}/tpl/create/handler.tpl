@@ -1,5 +1,23 @@
 package handler
 
+/*
+ 1: 在 cmd migration_wire.go 中添加:
+ model.{[.Name]}{},
+
+ 2: 在 cmd statr_wire.go 中添加:
+ handler.New{[.Name]}Handler,
+ service.New{[.Name]}Service,
+ repository.New{[.Name]}Repository,
+
+ 3: 添加路由
+
+ v1.POST("/{[.Name]}", {[.LowerName]}Handler.Create)
+ v1.GET("/{[.Name]}/:id", {[.LowerName]}Handler.Get)
+ v1.PATCH("/{[.Name]}/:id", {[.LowerName]}Handler.Update)
+ v1.DELETE("/{[.Name]}/:id", {[.LowerName]}Handler.Delete)
+ v1.POST("/{[.Name]}/query", {[.LowerName]}Handler.Query)
+ */
+
 type {[.Name]}Handler interface {
 	/* Basic */
 	// c
