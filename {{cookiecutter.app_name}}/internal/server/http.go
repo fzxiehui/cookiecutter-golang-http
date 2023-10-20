@@ -51,12 +51,8 @@ func NewServerHTTP(
 		ctx.String(http.StatusOK, "靓仔，你好！")
 	})
 
-	v1 := router.Group("/v1").Use(middleware.StrictAuth(jwt))
-	{}
-	// StrictAuthRouter := router.Group("/").Use(middleware.StrictAuth(jwt))
-	// StrictAuthRouter.GET("/auth_test", func(ctx *gin.Context) {
-	// 	ctx.String(http.StatusOK, "靓仔，你好！")
-	// })
+	// v1 := router.Group("/v1").Use(middleware.StrictAuth(jwt))
+	// {}
 
 	return router
 }

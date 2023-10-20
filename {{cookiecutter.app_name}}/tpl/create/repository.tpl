@@ -95,13 +95,10 @@ func (r *{[.LowerName]}Repository) Query(ctx context.Context,
 	}
 
 	// columns and query
-	if req.Query != "" {
-		if len(req.Columns) < 1 {
-			return nil, errors.New("查询模式必需指定相关字段")
-		}
+	if len(req.Columns) > 0 {
 		for _, item := range req.Columns {
-			tx = tx.Or(fmt.Sprintf("%s LIKE ?", item),
-				fmt.Sprintf("%%%s%%", req.Query))
+			tx = tx.Where(fmt.Sprintf("%s LIKE ?", item.Field),
+				fmt.Sprintf("%%%s%%", item.Query))
 		}
 	}
 	// Find

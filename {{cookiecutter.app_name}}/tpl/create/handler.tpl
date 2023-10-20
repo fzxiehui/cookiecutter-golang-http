@@ -11,11 +11,11 @@ package handler
 
  3: 添加路由
 
- v1.POST("/{[.Name]}", {[.LowerName]}Handler.Create)
- v1.GET("/{[.Name]}/:id", {[.LowerName]}Handler.Get)
- v1.PATCH("/{[.Name]}/:id", {[.LowerName]}Handler.Update)
- v1.DELETE("/{[.Name]}/:id", {[.LowerName]}Handler.Delete)
- v1.POST("/{[.Name]}/query", {[.LowerName]}Handler.Query)
+ v1.POST("/{[.LowerName]}", {[.LowerName]}Handler.Create)
+ v1.GET("/{[.LowerName]}/:id", {[.LowerName]}Handler.Get)
+ v1.PATCH("/{[.LowerName]}/:id", {[.LowerName]}Handler.Update)
+ v1.DELETE("/{[.LowerName]}/:id", {[.LowerName]}Handler.Delete)
+ v1.POST("/{[.LowerName]}/query", {[.LowerName]}Handler.Query)
  */
 
 type {[.Name]}Handler interface {
