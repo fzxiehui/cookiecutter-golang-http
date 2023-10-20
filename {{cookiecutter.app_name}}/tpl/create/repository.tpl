@@ -95,12 +95,25 @@ func (r *{[.LowerName]}Repository) Query(ctx context.Context,
 	}
 
 	// columns and query
-	if len(req.Columns) > 0 {
+		if len(req.Columns) > 0 {
 		for _, item := range req.Columns {
-			tx = tx.Where(fmt.Sprintf("%s LIKE ?", item.Field),
-				fmt.Sprintf("%%%s%%", item.Query))
+			if item.Exp == "" || item.Exp == "and" {
+				tx = tx.Where(fmt.Sprintf("%s LIKE ?", item.Field),
+					fmt.Sprintf("%%%s%%", item.Query))
+				continue
+			}
+			if item.Exp == "or" {
+				tx = tx.Or(fmt.Sprintf("%s LIKE ?", item.Field),
+					fmt.Sprintf("%%%s%%", item.Query))
+				continue
+			}
+			if item.Exp == "not" {
+				tx = tx.Not(fmt.Sprintf("%s LIKE ?", item.Field),
+					fmt.Sprintf("%%%s%%", item.Query))
+			}
 		}
 	}
+
 	// Find
 	// tx = tx.Preload(clause.Associations).Find(&data)
 	tx = tx.Find(&data)

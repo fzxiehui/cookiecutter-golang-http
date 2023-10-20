@@ -7,6 +7,7 @@ package request
 type PublicQueryColumnsRequest struct {
 	Field string `form:"field" json:"field"`
 	Query string `form:"query" json:"query"`
+	Exp   string `form:"exp" json:"exp"  binding:"omitempty,oneof=and or not"`
 }
 
 /*
