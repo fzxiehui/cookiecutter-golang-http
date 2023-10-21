@@ -50,9 +50,27 @@ func (m *Migrate) Run() {
 	tables := []interface{}{
 		model.User{},    // 用户表(客户)
 	}
+
+	/*
+	 * 删除已有的表, 创建新表
+	 */
+	log.Info("------------------ DropTable ------------------")
 	for _, t := range tables {
-		_ = m.db.AutoMigrate(&t)
+		if m.db.Migrator().HasTable(&t) {
+			_ = m.db.Migrator().DropTable(&t)
+		}
 	}
+
+	log.Info("------------------ AutoMigrate ------------------")
+	for _, t := range tables {
+		err := m.db.AutoMigrate(&t)
+		if err != nil {
+			log.Info(err.Error)
+			return
+		}
+	}
+
+
 	/*
 	 * 以下对 SQL 文件初始化
 	 */
