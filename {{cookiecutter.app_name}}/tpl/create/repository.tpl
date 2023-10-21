@@ -46,10 +46,12 @@ func (r *{[.LowerName]}Repository) Get(ctx context.Context,
 	id uint) (*model.{[.Name]}, error) {
 
 	md := model.{[.Name]}{}
-	if err := r.db.Where("id = ?", id).Preload(clause.Associations).Find(&md).Error; err != nil {
+		tx := r.db.Where("id = ?", id).Preload(clause.Associations).Find(&md)
+	// log.Debug(tx.Error)
+	// log.Debug(tx.RowsAffected)
+	if tx.Error != nil || tx.RowsAffected < 1 {
 		return nil, errors.New("无数据")
 	}
-
 	return &md, nil
 }
 
