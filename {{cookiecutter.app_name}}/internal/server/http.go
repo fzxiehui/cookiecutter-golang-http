@@ -1,12 +1,6 @@
 package server
 
 import (
-	// "t/internal/handler"
-	// "t/internal/pkg/middleware"
-	// "t/pkg/helper/resp"
-	// "t/pkg/jwt"
-	// "t/pkg/log"
-
 	"net/http"
 
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/handler"
@@ -26,6 +20,7 @@ func NewServerHTTP(
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
+	router.Use(middleware.CORSMiddleware())
 
 	/*
 	 * Basic routing

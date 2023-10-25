@@ -13,12 +13,13 @@ func StrictAuth(j *jwt.JWT) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		tokenString := ctx.Request.Header.Get("Authorization")
 		if tokenString == "" {
-			// resp.HandleError(ctx, http.StatusUnauthorized, 1, "no token", nil)
-			ctx.String(http.StatusUnauthorized, "on token")
+			tokenString, _ = ctx.Cookie("Authorization")
+		}
+		if tokenString == "" {
+			ctx.JSON(http.StatusUnauthorized, gin.H{"error": "请登录！"})
 			ctx.Abort()
 			return
 		}
-
 		claims, err := j.ParseToken(tokenString)
 		if err != nil {
 			// resp.HandleError(ctx, http.StatusUnauthorized, 1, err.Error(), nil)
