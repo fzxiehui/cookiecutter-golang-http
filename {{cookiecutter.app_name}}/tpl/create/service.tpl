@@ -8,7 +8,6 @@ import (
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/request"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/responses"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/repository"
-	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/request"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/pkg/reflect_tools"
 )
 
