@@ -27,7 +27,7 @@ type filesHandler struct {
 	filesService service.FilesService
 }
 
-// @Tags file
+// @Tags File
 // @Summary 图片下载
 // @Description 图片下载
 // @Param bulk path string true "sys"
@@ -59,7 +59,7 @@ func (h *filesHandler) GetImage(ctx *gin.Context) {
 
 }
 
-// @Tags file
+// @Tags File
 // @Summary 图片上传
 // @Description 上传图片返回图片url
 // @Accept multipart/form-data
