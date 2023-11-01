@@ -1,5 +1,14 @@
 package handler
 
+import (
+	"net/http"
+	"strconv"
+
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/request"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/service"
+	"github.com/gin-gonic/gin"
+)
+
 /*
  1: 在 cmd migration_wire.go 中添加:
  model.{[.Name]}{},
@@ -46,6 +55,13 @@ type {[.LowerName]}Handler struct {
 
 /* Basic */
 // c
+// @Tags {[.Name]} 
+// @Summary 标准方法:创建({[.Name]})
+// @Description  标准方法:创建({[.Name]})
+// @Produce application/json
+// @Param req body request.Create{[.Name]}Request true "object"
+// @Success 200 {object} model.{[.Name]} "{[.Name]}"
+// @Router /v1/{[.LowerName]} [post]
 func (h *{[.LowerName]}Handler) Create(ctx *gin.Context) {
 	req := request.Create{[.Name]}Request{}
 	if err := ctx.BindJSON(&req); err != nil {
@@ -60,7 +76,15 @@ func (h *{[.LowerName]}Handler) Create(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, data)
 	return
 }
+
 // r
+// @Tags {[.Name]}
+// @Summary 标准方法: 查询指定ID({[.Name]})
+// @Description  标准方法: 查询指定ID({[.Name]})
+// @Produce application/json
+// @Param id path int true "{[.Name]}.ID"
+// @Success 200 {object} model.{[.Name]} "{[.Name]}"
+// @Router /v1/{[.LowerName]}/{id} [get]
 func (h *{[.LowerName]}Handler) Get(ctx *gin.Context) {
 	// get uri id
 	id, err := strconv.Atoi(ctx.Param("id"))
@@ -76,7 +100,16 @@ func (h *{[.LowerName]}Handler) Get(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, data)
 	return
 }
+
 // u
+// @Tags {[.Name]}
+// @Summary 标准方法:修改({[.Name]})
+// @Description  标准方法:修改({[.Name]})
+// @Produce application/json
+// @Param id path int true "{[.Name]}.ID"
+// @Param req body request.Update{[.Name]}Request true "object"
+// @Success 200 {object} model.{[.Name]} "{[.Name]}"
+// @Router /v1/{[.LowerName]}/{id} [patch]
 func (h *{[.LowerName]}Handler) Update(ctx *gin.Context) {
 	// get uri id
 	id, err := strconv.Atoi(ctx.Param("id"))
@@ -97,7 +130,15 @@ func (h *{[.LowerName]}Handler) Update(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, data)
 	return
 }
+
 // d
+// @Tags {[.Name]}
+// @Summary 标准方法:删除({[.Name]})
+// @Description  标准方法:删除({[.Name]})
+// @Produce application/json
+// @Param id path int true "{[.Name]}.ID"
+// @Success 200 {string} success "{[.Name]}"
+// @Router /v1/{[.LowerName]}/{id} [delete]
 func (h *{[.LowerName]}Handler) Delete(ctx *gin.Context) {
 	// get uri id
 	id, err := strconv.Atoi(ctx.Param("id"))
@@ -113,7 +154,15 @@ func (h *{[.LowerName]}Handler) Delete(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"message": "删除成功"})
 	return
 }
+
 // q
+// @Tags {[.Name]}
+// @Summary 标准方法:高级查询({[.Name]})
+// @Description 标准方法:高级查询({[.Name]})
+// @Produce application/json
+// @Param req body request.PublicQueryListRequest true "object"
+// @Success 200 {object} responses.PublicQueryListResponses "{[.Name]}"
+// @Router /v1/{[.LowerName]}/query [post]
 func (h *{[.LowerName]}Handler) Query(ctx *gin.Context) {
 	req := &request.PublicQueryListRequest{}
 	if err := ctx.BindJSON(&req); err != nil {

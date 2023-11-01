@@ -1,5 +1,17 @@
 package service
 
+import (
+	"context"
+	"errors"
+
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/model"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/request"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/responses"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/repository"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/request"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/pkg/reflect_tools"
+)
+
 type {[.Name]}Service interface {
 	/* Basic */
 	// c

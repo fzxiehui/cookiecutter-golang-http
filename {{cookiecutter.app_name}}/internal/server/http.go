@@ -3,11 +3,14 @@ package server
 import (
 	"net/http"
 
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/docs"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/handler"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/middleware"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/pkg/jwt"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/version"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func NewServerHTTP(
@@ -21,6 +24,12 @@ func NewServerHTTP(
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 	router.Use(middleware.CORSMiddleware())
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	docs.SwaggerInfo.Title = "{{cookiecutter.app_name}}"
+	docs.SwaggerInfo.Version = version.Version
+	docs.SwaggerInfo.Description = "赤诚勇敢，自洽欢喜。"
+
 
 	/*
 	 * Basic routing

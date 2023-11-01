@@ -1,5 +1,18 @@
 package repository
 
+import (
+	"context"
+	"errors"
+	"fmt"
+
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/model"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/request"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/responses"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/log"
+	"gorm.io/gorm/clause"
+
+)
+
 type {[.Name]}Repository interface {
 	/* CRUDQ */
 	// c
