@@ -2,10 +2,10 @@ package model
 
 type {[.Name]} struct {
 	Model
-	Name              string           `gorm:"not null" json:"name"` // 名称
-	Sort              int              `json:"sort"`                 // 排序
+	Name              string           `gorm:"comment:'名称'" json:"name"` // 名称
+	Sort              int              `gorm:"comment:'排序'" json:"sort"`                 // 排序
 }
 
-func (d *{[.Name]}) TableName() string {
-	return "{[.LowerName]}s"
-}
+// func (d *{[.Name]}) TableName() string {
+// 	return "{[.LowerName]}s"
+// }
