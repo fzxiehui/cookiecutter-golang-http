@@ -27,6 +27,14 @@ type filesHandler struct {
 	filesService service.FilesService
 }
 
+// @Tags file
+// @Summary 图片下载
+// @Description 图片下载
+// @Param bulk path string true "sys"
+// @Param uid path int true "1"
+// @Param name path string true "1.png"
+// @Success 200 {string} image "image"
+// @Router /download/image/{bulk}/{uid}/{name} [get]
 func (h *filesHandler) GetImage(ctx *gin.Context) {
 	bulkName := ctx.Param("bulk")
 	if len(bulkName) <= 0 {
@@ -51,6 +59,14 @@ func (h *filesHandler) GetImage(ctx *gin.Context) {
 
 }
 
+// @Tags file
+// @Summary 图片上传
+// @Description 上传图片返回图片url
+// @Accept multipart/form-data
+// @Param file formData file true "file"
+// @Produce  json
+// @Success 200 {string} url ""
+// @Router /upload/image [post]
 func (h *filesHandler) SaveImage(ctx *gin.Context) {
 	// TODO // 如果需要分用户存放 把以下注释打开 并使用 jwt 中间件
 	// id := GetUserIdFromCtx(ctx)
