@@ -7,7 +7,6 @@ import (
 
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/model"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/request"
-	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/internal/pkg/responses"
 	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/log"
 	"gorm.io/gorm/clause"
 
@@ -29,7 +28,7 @@ type {[.Name]}Repository interface {
 		id uint) error
 	// q
 	Query(ctx context.Context,
-		req *request.PublicQueryListRequest) (*responses.PublicQueryListResponses, error)
+		req *request.PublicQueryListRequest) (*[]model.{[.Name]}, int64, error)
 
 }
 
@@ -90,9 +89,8 @@ func (r *{[.LowerName]}Repository) Delete(ctx context.Context,
 
 // q
 func (r *{[.LowerName]}Repository) Query(ctx context.Context,
-	req *request.PublicQueryListRequest) (*responses.PublicQueryListResponses, error) {
+	req *request.PublicQueryListRequest) (*[]model.{[.Name]}, int64, error) {
 	var data []model.{[.Name]}
-	var res responses.PublicQueryListResponses
 
 	tx := r.db.WithContext(ctx)
 	// 是否需要排序
@@ -133,10 +131,10 @@ func (r *{[.LowerName]}Repository) Query(ctx context.Context,
 	// tx = tx.Preload(clause.Associations).Find(&data)
 	tx = tx.Find(&data)
 	if len(data) < 1 {
-		return nil, errors.New("没有数据")
+		return nil, 0, errors.New("没有数据")
 	}
-	tx.Offset(-1).Limit(-1).Count(&res.Total)
+	var total int64
+	tx.Offset(-1).Limit(-1).Count(&total)
 
-	res.List = data
-	return &res, nil
+	return &data, total, nil
 }
