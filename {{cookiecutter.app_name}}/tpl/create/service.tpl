@@ -76,5 +76,12 @@ func (s *{[.LowerName]}Service) Delete(ctx context.Context,
 // q
 func (s *{[.LowerName]}Service) Query(ctx context.Context,
 	req *request.PublicQueryListRequest) (*responses.PublicQueryListResponses, error) {
-	return s.Repo.Query(ctx, req)
+	res := responses.PublicQueryListResponses{}
+	data, total, err := s.Repo.Query(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	res.List = data
+	res.Total = total
+	return &res, nil
 }
