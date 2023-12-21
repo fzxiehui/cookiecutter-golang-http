@@ -10,6 +10,7 @@ import (
 	"github.com/google/wire"
 	"github.com/minio/minio-go/v7"
 	// "github.com/minio/minio-go/v7/pkg/credentials"
+	"fmt"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
 	"io/ioutil"
@@ -55,9 +56,20 @@ func (m *Migrate) Run() {
 	 * 删除已有的表, 创建新表
 	 */
 	log.Info("------------------ DropTable ------------------")
-	for _, t := range tables {
-		if m.db.Migrator().HasTable(&t) {
-			_ = m.db.Migrator().DropTable(&t)
+	var s string
+	fmt.Print("是否清空数据库? (y/n): ")
+	_, err := fmt.Scan(&s)
+	if err == nil {
+		s = strings.TrimSpace(s)
+		s = strings.ToLower(s)
+		if s == "y" || s == "yes" {
+			ts := make([]string, 0)
+			m.db.Raw("SHOW TABLES").Scan(&ts)
+			log.Debug(ts)
+			for _, v := range ts {
+				log.Debug("正删除:", v)
+				m.db.Migrator().DropTable(v)
+			}
 		}
 	}
 
