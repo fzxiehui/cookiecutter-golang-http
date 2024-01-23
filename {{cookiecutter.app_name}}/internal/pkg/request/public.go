@@ -5,9 +5,10 @@ package request
  * query 查询关键字
  */
 type PublicQueryColumnsRequest struct {
-	Field string `form:"field" json:"field" example:"name"`                                  // 字段名
-	Query string `form:"query" json:"query" example:"hello"`                                 // 查询关键字
-	Exp   string `form:"exp" json:"exp"  binding:"omitempty,oneof=and or not" example:"and"` // 表达式
+	Field      string `form:"field" json:"field" example:"name"`                                                         // 字段名
+	Query      string `form:"query" json:"query" example:"hello"`                                                        // 查询关键字
+	Exp        string `form:"exp" json:"exp"  binding:"omitempty,oneof=and or not" example:"and"`                        // 表达式
+	Conditions string `form:"conditions" json:"conditions" binding:"omitempty,oneof=<> = IN LIKE > < >= <=" example:"="` // 过滤条件: <> = < > <= >= IN LIKE
 }
 
 /*

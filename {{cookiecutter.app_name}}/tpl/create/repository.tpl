@@ -108,21 +108,26 @@ func (r *{[.LowerName]}Repository) Query(ctx context.Context,
 	}
 
 	// columns and query
-		if len(req.Columns) > 0 {
+	if len(req.Columns) > 0 {
 		for _, item := range req.Columns {
+			q := fmt.Sprintf("%s", item.Query)
+			c := "="
+			if item.Conditions != "" {
+				c = item.Conditions
+			}
+			if item.Conditions == "LIKE" {
+				q = fmt.Sprintf("%%%s%%", item.Query)
+			}
 			if item.Exp == "" || item.Exp == "and" {
-				tx = tx.Where(fmt.Sprintf("%s LIKE ?", item.Field),
-					fmt.Sprintf("%%%s%%", item.Query))
+				tx = tx.Where(fmt.Sprintf("%s %s ?", item.Field, c), q)
 				continue
 			}
 			if item.Exp == "or" {
-				tx = tx.Or(fmt.Sprintf("%s LIKE ?", item.Field),
-					fmt.Sprintf("%%%s%%", item.Query))
+				tx = tx.Or(fmt.Sprintf("%s %s ?", item.Field, c), q)
 				continue
 			}
 			if item.Exp == "not" {
-				tx = tx.Not(fmt.Sprintf("%s LIKE ?", item.Field),
-					fmt.Sprintf("%%%s%%", item.Query))
+				tx = tx.Not(fmt.Sprintf("%s %s ?", item.Field, c), q)
 			}
 		}
 	}
