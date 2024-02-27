@@ -5,10 +5,10 @@ package request
  * query 查询关键字
  */
 type PublicQueryColumnsRequest struct {
-	Field      string `form:"field" json:"field" example:"name"`                                                         // 字段名
-	Query      string `form:"query" json:"query" example:"hello"`                                                        // 查询关键字
-	Exp        string `form:"exp" json:"exp"  binding:"omitempty,oneof=and or not" example:"and"`                        // 表达式
-	Conditions string `form:"conditions" json:"conditions" binding:"omitempty,oneof=<> = IN LIKE > < >= <=" example:"="` // 过滤条件: <> = < > <= >= IN LIKE
+	Field      string `form:"Field" json:"Field" example:"name"`                                                         // 字段名
+	Query      string `form:"Query" json:"Query" example:"hello"`                                                        // 查询关键字
+	Exp        string `form:"EXP" json:"EXP"  binding:"omitempty,oneof=and or not" example:"and"`                        // 表达式
+	Conditions string `form:"Conditions" json:"Conditions" binding:"omitempty,oneof=<> = IN LIKE > < >= <=" example:"="` // 过滤条件: <> = < > <= >= IN LIKE
 }
 
 /*
@@ -18,8 +18,8 @@ type PublicQueryColumnsRequest struct {
  * sort 按哪个列进行排序 在后面加上 desc 为倒序
  */
 type PublicQueryListRequest struct {
-	Page     int                         `form:"page" json:"page" example:"1"`            // 查询起始⻚
-	PageSize int                         `form:"page_size" json:"page_size" example:"10"` // 每⻚有几条数据
-	Columns  []PublicQueryColumnsRequest `form:"columns" json:"columns"`                  // 查询条件
-	Sort     string                      `form:"sort" json:"sort" example:"sort"`         // 按哪个列进行排序 尾部加desc 为倒序
+	Page     int                         `form:"Page" json:"Page" example:"1"`          // 查询起始⻚
+	PageSize int                         `form:"PageSize" json:"PageSize" example:"10"` // 每⻚有几条数据
+	Columns  []PublicQueryColumnsRequest `form:"Columns" json:"Columns"`                // 查询条件
+	Sort     string                      `form:"Sort" json:"Sort" example:"sort"`       // 按哪个列进行排序 尾部加desc 为倒序
 }

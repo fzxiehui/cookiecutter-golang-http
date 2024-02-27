@@ -6,7 +6,7 @@
     "docker_hub_username": "fzxiehui",
     "docker_image": "fzxiehui/alpine-base-image:latest",
     "docker_build_image": "fzxiehui/alpine-golang-buildimage",
-    "docker_build_image_version": ["1.13", "1.12.9", "1.11.9"],
+    "docker_build_image_version": ["1.21.5", "1.12.9", "1.11.9"],
     "go_mod_or_dep": ["mod", "dep"],
     "use_docker": "y",
     "use_git": "y",
