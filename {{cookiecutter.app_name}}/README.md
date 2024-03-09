@@ -2,6 +2,18 @@
 
 {{cookiecutter.project_short_description}}
 
+## 编译条件
+
+- `wire` install > `go get github.com/google/wire/cmd/wire`
+
+- `swag` 
+
+```shell
+go install github.com/swaggo/swag/cmd/swag@latest
+# 如果出现swag报错 更新项目 swag 库
+go get -u github.com/swaggo/swag/cmd/swag
+```
+
 ## 目录说明
 
 ```shell

@@ -1,3 +1,4 @@
 .tox
 .cache
 __pycache__
+docs
