@@ -25,7 +25,10 @@ func NewServerHTTP(
 	router.Use(gin.Recovery())
 	router.Use(middleware.CORSMiddleware())
 
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(
+		swaggerFiles.Handler,
+		ginSwagger.DocExpansion("none"),
+	))
 	docs.SwaggerInfo.Title = "{{cookiecutter.app_name}}"
 	docs.SwaggerInfo.Version = version.Version
 	docs.SwaggerInfo.Description = "赤诚勇敢，自洽欢喜。"
